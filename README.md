@@ -19,7 +19,7 @@ source ~/.bashrc
 ```
 * Prep `.vimrc` for your next ssh session:
 ```
-vimrc
+reload_vimrc
 ```
 
 ## Usage/Effects ##
@@ -32,3 +32,5 @@ When in a git repo, it will also show the repo and branch name:
 ```
 [user@hostname pwd_short] <repo_name/branch> $ 
 ```
+
+Otherwise, peruse .bashrc for aliases provided.
