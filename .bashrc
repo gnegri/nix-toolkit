@@ -8,7 +8,7 @@ else # non-root
     PROMPT_CHAR='$'
     OTHER_DIR=$ROOT_DIR
 fi
-PS1='[\u@\h \W$(basename `git rev-parse --show-toplevel 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")] \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
+PS1='[\u@\h \W$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")] \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
 
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
 alias sudo='sudo '
