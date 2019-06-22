@@ -1,6 +1,30 @@
 # PS1
-ROOT_DIR='/var/root'
-HOME_DIR='/Users/gjn'
+case "$OSTYPE" in
+    linux*|bsd*)
+        # Linux/FreeBSD
+        USER_DIR_PREFIX="/home"
+        ROOT_DIR_PREFIX=""
+        ;;
+    darwin*)
+        # Mac OSX
+        USER_DIR_PREFIX="/Users"
+        ROOT_DIR_PREFIX="/var"
+        ;;
+#    solaris*)
+#        TODO: define these
+#        ;;
+#    msys*)
+#        TODO: define these
+#        ;;
+    *) 
+        # Others
+        USER_DIR_PREFIX="/home"
+        ROOT_DIR_PREFIX=""
+        ;;
+esac
+
+ROOT_DIR=$ROOT_DIR_PREFIX'/root'
+HOME_DIR=$USER_DIR_PREFIX'/'`whoami`
 if [ $(id -u) -eq 0 ];
 then # you are root
     PROMPT_CHAR='#'
