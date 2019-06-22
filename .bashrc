@@ -1,3 +1,4 @@
+# PS1
 ROOT_DIR='/var/root'
 HOME_DIR='/Users/gjn'
 if [ $(id -u) -eq 0 ];
@@ -8,8 +9,11 @@ else # non-root
     PROMPT_CHAR='$'
     OTHER_DIR=$ROOT_DIR
 fi
-PS1='[\u@\h \W]$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p") \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
 
+REPO_IGNORE='nix-toolkit'
+PS1='[\u@\h \W]$(if [ "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null)" != "$REPO_IGNORE" ]; then echo "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")"; fi) \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
+
+# sshrc
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
 alias sudo='sudo '
 alias bashrc='vim ~/.bashrc; reload_bashrc'
@@ -83,8 +87,8 @@ alias sha='shasum -a 256'
 alias ping='ping -c 5'
 alias ipint='ipconfig getifaddr en0'
 alias ipext='curl ipinfo.io/ip'
-alias psef='ps -ef | grep '
-alias ssh='sudo sshrc '
+alias psef='ps -ef | grep'
+alias ssh='sudo sshrc'
 
 # functions
 json() {
