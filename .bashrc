@@ -8,7 +8,7 @@ else # non-root
     PROMPT_CHAR='$'
     OTHER_DIR=$ROOT_DIR
 fi
-PS1='[\u@\h \W$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")] \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
+PS1='[\u@\h \W]$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p") \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
 
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
 alias sudo='sudo '
@@ -16,18 +16,24 @@ alias bashrc='vim ~/.bashrc; reload_bashrc'
 reload_bashrc() {
     source ~/.bashrc
     sudo cp ~/.bashrc $OTHER_DIR/.bashrc
+    # set up for user
     sudo cp ~/.bashrc $HOME_DIR/.sshrc 
-    sudo cp ~/.bashrc $ROOT_DIR/.sshrc
     echo export VIMINIT=$VIMINIT | sudo tee -a $HOME_DIR/.sshrc
+    # set up for root
+    sudo cp ~/.bashrc $ROOT_DIR/.sshrc
     echo export VIMINIT=$VIMINIT | sudo tee -a $ROOT_DIR/.sshrc
     echo Bash config reloaded
 }
 alias vimrc='vim ~/.vimrc; reload_vimrc'
 reload_vimrc() {
     sudo cp ~/.vimrc $OTHER_DIR/.vimrc
+    # set up for user
+    sudo mkdir -p $HOME_DIR/.sshrc.d
     sudo cp ~/.vimrc $HOME_DIR/.sshrc.d/.vimrc
-    sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
     echo ":imap <special> jk <Esc>" | sudo tee -a $HOME_DIR/.sshrc.d/.vimrc
+    # set up for root
+    sudo mkdir -p $ROOT_DIR/.sshrc.d
+    sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
     echo ":imap <special> jk <Esc>" | sudo tee -a $ROOT_DIR/.sshrc.d/.vimrc
     echo Updated vim config
 }
