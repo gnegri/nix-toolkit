@@ -110,7 +110,9 @@ function reload_vimrc() {
 }
 
 alias gitpush=$HOME_DIR'/push-git-repo.sh'
+alias gitpushz=$HOME_DIR'/push-git-repo.sh -z'
 alias gitpull=$HOME_DIR'/update-git-repo.sh'
+alias gitpullz=$HOME_DIR'/update-git-repo.sh -z'
 
 # diff
 alias diff='colordiff '
