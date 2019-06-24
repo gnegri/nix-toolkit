@@ -20,7 +20,7 @@ source ~/.bashrc
 ```
 reload_vimrc
 ```
-* Set the repo to invisible:
+* Set the repo to invisible so `<nix-toolkit/master>` isn't always appended when you're in `~`, but not a different repo:
 ```
 mv ~/.git ~/.git.bck
 or
@@ -38,8 +38,6 @@ When in a git repo, it will also show the repo and branch name:
 [user@hostname pwd_short] <repo_name/branch> $                    [HH:MM:SS] 
 ```
 
-Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided.
-
 There are also 2 scripts to interact with Git, which are aliased.
 ```
 gitpull [-z]
@@ -47,6 +45,8 @@ gitpush [-z] -m "commit msg" file1 file2
 ```
 
 These can be called from any git project folder to push/pull as indicated. The -z flag will make the script set the repo to invisible.
+
+Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided respectively.
 
 ## Troubleshooting/Contributing ##
 $USER_DIR_PREFIX and $ROOT_DIR_PREFIX:
