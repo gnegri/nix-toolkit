@@ -37,7 +37,7 @@ fi
 
 GITREPO=$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null)
 GITBRANCH=`git branch 2>/dev/null | sed -n "s/* \(.*\)/\1/p"`
-echo 'Adding '"$FILES"' to '"$GITREPO"' on '"$GITBRANCH"
+echo 'Adding {'"$FILES"'} to '"$GITREPO"' on '"$GITBRANCH"
 
 # add specified files
 git add $FILES
