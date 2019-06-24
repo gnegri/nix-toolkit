@@ -5,7 +5,7 @@ do
     case "$arg" in
         z)  INVISIBLE='true'
             ;;
-        ?)  echo '-m "commit message" file1 file2'
+        ?)  echo '-z only'
             exit 2
             ;;
     esac
