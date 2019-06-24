@@ -59,3 +59,6 @@ Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided respectiv
 ## Troubleshooting/Contributing ##
 $USER_DIR_PREFIX and $ROOT_DIR_PREFIX:
 * No specific settings for msys, cygwin, solaris etc
+
+## License ##
+Just be cool. Don't sell it for profit. Barely anything in here is original code or ideas, anyway. All credit to the fine folks who actually answer things on StackExchange.
