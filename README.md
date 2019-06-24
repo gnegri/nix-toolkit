@@ -11,7 +11,7 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 * Clone this repo in your home directory or wget it if you don't want to be able to update or contribute
 ```
 cd ~ && git clone https://github.com/gnegri/nix-toolkit.git
-or
+# or
 wget https://github.com/gnegri/nix-toolkit/archive/master.tar.gz
 tar xzvf master.tar.gz --strip 1 -C ~
 rm master.tar.gz
@@ -28,7 +28,7 @@ reload_vimrc
 * Set the repo to invisible so `<nix-toolkit/master>` isn't always appended when you're in `~`, but not a different repo:
 ```
 mv ~/.git ~/.git.bck
-or
+# or
 cd ~ && gitpull -z
 ```
 
