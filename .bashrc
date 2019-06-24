@@ -1,4 +1,3 @@
-# PS1
 case "$OSTYPE" in
     linux*|bsd*)
         # Linux/FreeBSD
@@ -36,8 +35,9 @@ fi
 
 # configure right-justified timestamp
 r_print() { printf "%*s\r" $1 $2; }
+
+# Set up the git portion of PS1
 PS1_GIT() {
-    # if [[ `git rev-parse --is-inside-work-tree` ]];
     if [[ ! -z "$GIT_REPO" ]];
     then # in a git repo
         echo $GIT_REPO$GIT_BRANCH
@@ -53,10 +53,6 @@ BUILD_PS1() {
     echo ${PS1_RHJ}${PS1_BASE}`PS1_GIT`${PS1_PROMPT}" "
 }
 PS1=`BUILD_PS1`
-
-# PS1=$PS1_RHJ$PS1_BASE$(if [ "`$GIT_REPO`" != "$REPO_IGNORE" ]; then echo " <$GIT_REPO/$GIT_BRANCH>"; fi)$PS1_PROMPT
-# PS1=$PS1_RHJ'[\u@\h \W]$(if [ "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null)" != "$REPO_IGNORE" ]; then echo "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")"; fi) \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
-
 
 # sshrc
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
@@ -84,6 +80,9 @@ reload_vimrc() {
     sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
     echo Updated vim config
 }
+
+alias gitpush=$HOME_DIR'/push-git-repo.sh -m'
+alias gitpull=$HOME_DIR'/update-git-repo.sh'
 
 # diff
 alias diff='colordiff '
@@ -137,4 +136,3 @@ alias ssh='sudo sshrc'
 json() {
     cat "$1" | python -m json.tool
 }
-
