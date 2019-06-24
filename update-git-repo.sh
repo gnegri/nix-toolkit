@@ -19,6 +19,7 @@ GITBACKUPFILE='.git.bck'
 if [[ -e "$GITBACKUPFILE" ]];
 then
     echo "setting back to repo"
+    INVISIBLE='true'
     mv "$GITBACKUPFILE" "$GITFILE"
 fi
 
