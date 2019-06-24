@@ -20,19 +20,33 @@ source ~/.bashrc
 ```
 reload_vimrc
 ```
+* Set the repo to invisible:
+```
+mv ~/.git ~/.git.bck
+or
+cd ~ && gitpull -z
+```
 
 ## Usage/Effects ##
 PS1 is modified to show 
 ```
-[user@hostname pwd_short] $ 
+[user@hostname pwd_short] $                                       [HH:MM:SS]
 ```
 
 When in a git repo, it will also show the repo and branch name:
 ```
-[user@hostname pwd_short] <repo_name/branch> $ 
+[user@hostname pwd_short] <repo_name/branch> $                    [HH:MM:SS] 
 ```
 
-Otherwise, peruse .bashrc for aliases provided.
+Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided.
+
+There are also 2 scripts to interact with Git, which are aliased.
+```
+gitpull [-z]
+gitpush [-z] -m "commit msg" file1 file2
+```
+
+These can be called from any git project folder to push/pull as indicated. The -z flag will make the script set the repo to invisible.
 
 ## Troubleshooting/Contributing ##
 $USER_DIR_PREFIX and $ROOT_DIR_PREFIX:
