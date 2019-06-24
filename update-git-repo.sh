@@ -3,8 +3,6 @@
 while getopts ':z' arg;
 do
     case "$arg" in
-        m)  MESSAGE=$OPTARG
-            ;;
         z)  INVISIBLE='true'
             ;;
         ?)  echo '-m "commit message" file1 file2'

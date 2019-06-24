@@ -81,7 +81,7 @@ reload_vimrc() {
     echo Updated vim config
 }
 
-alias gitpush=$HOME_DIR'/push-git-repo.sh -m'
+alias gitpush=$HOME_DIR'/push-git-repo.sh'
 alias gitpull=$HOME_DIR'/update-git-repo.sh'
 
 # diff

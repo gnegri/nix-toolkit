@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while getopts ':m:' arg;
+while getopts ':m:z' arg;
 do
     case "$arg" in
         m)  MESSAGE=$OPTARG
