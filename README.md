@@ -8,9 +8,14 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 * python (optional - for now, just used to pretty print json using `json_print jsonfile.json`)
 
 ## Installation ##
-* Clone this repo in your home directory
+* Clone this repo in your home directory or wget it if you don't want to be able to update or contribute
 ```
 cd ~ && git clone https://github.com/gnegri/nix-toolkit.git
+or
+wget https://github.com/gnegri/nix-toolkit/archive/master.tar.gz
+tar xzvf master.tar.gz --strip 1 -C ~
+rm master.tar.gz
+# you can later manually update by using wget on the raw versions of files
 ```
 * Start using the new `.bashrc`:
 ```
