@@ -5,7 +5,11 @@ do
     case "$arg" in
         m)  MESSAGE=$OPTARG
             ;;
+        z)  INVISIBLE='true'
+            ;;
         ?)  echo '-m "commit message" file1 file2'  
+            exit 2
+            ;;
     esac
 done
 shift $(( OPTIND - 1 ))
@@ -40,5 +44,8 @@ git commit -m "$MESSAGE"
 git push -u origin "$GITBRANCH"
 
 # reset
-echo "unsetting repo"
-mv "$GITFILE" "$GITBACKUPFILE"
+if [[ $INVISIBLE = 'true' ]];
+then
+    echo "unsetting repo"
+    mv "$GITFILE" "$GITBACKUPFILE"
+fi
