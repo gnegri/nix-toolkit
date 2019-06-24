@@ -11,9 +11,18 @@ case "$OSTYPE" in
         ;;
 #    solaris*)
 #        TODO: define these
+#        USER_DIR_PREFIX=
+#        ROOT_DIR_PREFIX=
 #        ;;
 #    msys*)
 #        TODO: define these
+#        USER_DIR_PREFIX=
+#        ROOT_DIR_PREFIX=
+#        ;;
+#    cygwin*)
+#        TODO: define these
+#        USER_DIR_PREFIX=
+#        ROOT_DIR_PREFIX=
 #        ;;
     *) 
         # Others
