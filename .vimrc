@@ -1,20 +1,18 @@
 " exit and save
 :imap <special> ZZ <Esc>:wq!<Return>
-:imap <special> QQ <Esc>:q!<Return>
 " exit and no save
+:imap <special> QQ <Esc>:q!<Return>
 :map <special> QQ :q!<Return>
 :map Q <Nop>
 " add line below cur line
 :imap <special> ?? <Esc>o
 " move around line
-:imap <special> >> <Esc>$i
 :imap <special> << <Esc>^i
-:imap <special> $$ <Esc>$i
-:imap <special> ^^ <Esc>^i
+:imap <special> >> <Esc>$i
 nnoremap B ^
 nnoremap E $
-nnoremap >> $
 nnoremap << ^
+nnoremap >> $
 " incr/dec tab level
 nnoremap <Tab> >
 nnoremap <S-Tab> <
