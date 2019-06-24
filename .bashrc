@@ -144,7 +144,7 @@ alias v=vim
 alias vi=vim
 alias h='history | grep'
 alias j='jobs -l '
-alias clr='clear;ls;pwd'
+alias clr='clear; ls; pwd'
 alias x=exit
 alias df='df -h'
 alias mount='mount | column -t'
@@ -161,6 +161,7 @@ alias ipint='ipconfig getifaddr en0'
 alias ipext='curl ipinfo.io/ip'
 alias psef='ps -ef | grep'
 alias ssh='sudo sshrc'
+alias tailf='tail -f'
 
 # functions
 function json_print() {
