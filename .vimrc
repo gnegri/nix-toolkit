@@ -1,6 +1,15 @@
 :imap <special> ZZ <Esc>:wq!<Return>
+:imap <special> QQ <Esc>:q!<Return>
+:imap <special> >> <Esc>$i
+:imap <special> << <Esc>^i
+:imap <special> $$ <Esc>$i
+:imap <special> ^^ <Esc>^i
 nnoremap B ^
 nnoremap E $
+nnoremap > e
+nnoremap < b
+nnoremap >> $
+nnoremap << ^
 
 filetype plugin indent on
 set showmatch
