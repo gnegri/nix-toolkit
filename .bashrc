@@ -22,6 +22,7 @@ case "$OSTYPE" in
         ;;
 esac
 
+# Set a few directory locales
 ROOT_DIR=$ROOT_DIR_PREFIX'/root'
 HOME_DIR=$USER_DIR_PREFIX'/'`whoami`
 if [ $(id -u) -eq 0 ];
@@ -33,24 +34,42 @@ else # non-root
     OTHER_DIR=$ROOT_DIR
 fi
 
+#######
+# PS1 #
+#######
+
 # configure right-justified timestamp
-r_print() { printf "%*s\r" $1 $2; }
+function r_print() { printf "%*s\r" $1 $2; }
 
 # Set up the git portion of PS1
-PS1_GIT() {
+function PS1_GIT() {
     if [[ ! -z "$GIT_REPO" ]];
     then # in a git repo
         echo $GIT_REPO$GIT_BRANCH
     fi
 }
 
-BUILD_PS1() {
-    PS1_RHJ='\[\e[s\e[37m$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e[0m\e[u\]'
+# actual PS1 build
+function BUILD_PS1() {
+    PS1_DEFAULT_COLOR_CODE='0' # black
+
+    # Right-hand justified time
+    PS1_RHJ_COLOR_CODE='37' # gray
+    PS1_RHJ='\[\e[s\e['$PS1_RHJ_COLOR_CODE'm$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e['$PS1_DEFAULT_COLOR_CODE'm\e[u\]'
+
+    # Basic prompt
     PS1_BASE='[\u@\h \W]'
+
+    # Git
+    PS1_GIT_COLOR_CODE='35' # purple
     GIT_REPO='$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/\ \<\1\//p")'
-    GIT_BRANCH='`git branch 2>/dev/null | sed -n "s/* \(.*\)/\1\>/p"`'
+    GIT_BRANCH='$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\1\>/p")'
+    PS1_GIT_STANZA='\[\e['$PS1_GIT_COLOR_CODE'm'`PS1_GIT`'\e['$PS1_DEFAULT_COLOR_CODE'm\]'
+
+    # Final prompt char ($ or # if root)
     PS1_PROMPT=' \[\e[1m\]$PROMPT_CHAR\[\e[0m\]'
-    echo ${PS1_RHJ}${PS1_BASE}`PS1_GIT`${PS1_PROMPT}" "
+    
+    echo ${PS1_RHJ}${PS1_BASE}${PS1_GIT_STANZA}${PS1_PROMPT}" "
 }
 PS1=`BUILD_PS1`
 
@@ -58,7 +77,7 @@ PS1=`BUILD_PS1`
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
 alias sudo='sudo '
 alias bashrc='vim ~/.bashrc; reload_bashrc'
-reload_bashrc() {
+function reload_bashrc() {
     source ~/.bashrc
     sudo cp ~/.bashrc $OTHER_DIR/.bashrc
     # set up for user
@@ -70,7 +89,7 @@ reload_bashrc() {
     echo Bash config reloaded
 }
 alias vimrc='vim ~/.vimrc; reload_vimrc'
-reload_vimrc() {
+function reload_vimrc() {
     sudo cp ~/.vimrc $OTHER_DIR/.vimrc
     # set up for user
     sudo mkdir -p $HOME_DIR/.sshrc.d
@@ -133,6 +152,6 @@ alias psef='ps -ef | grep'
 alias ssh='sudo sshrc'
 
 # functions
-json() {
+function json_print() {
     cat "$1" | python -m json.tool
 }
