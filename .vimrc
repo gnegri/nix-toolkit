@@ -1,15 +1,23 @@
+" exit and save
 :imap <special> ZZ <Esc>:wq!<Return>
 :imap <special> QQ <Esc>:q!<Return>
+" exit and no save
+:map <special> QQ :q!<Return>
+:map Q <Nop>
+" add line below cur line
+:imap <special> ?? <Esc>o
+" move around line
 :imap <special> >> <Esc>$i
 :imap <special> << <Esc>^i
 :imap <special> $$ <Esc>$i
 :imap <special> ^^ <Esc>^i
 nnoremap B ^
 nnoremap E $
-nnoremap > e
-nnoremap < b
 nnoremap >> $
 nnoremap << ^
+" incr/dec tab level
+nnoremap <Tab> >
+nnoremap <S-Tab> <
 
 filetype plugin indent on
 set showmatch
