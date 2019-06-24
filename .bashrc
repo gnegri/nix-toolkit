@@ -34,8 +34,29 @@ else # non-root
     OTHER_DIR=$ROOT_DIR
 fi
 
-REPO_IGNORE='nix-toolkit'
-PS1='[\u@\h \W]$(if [ "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null)" != "$REPO_IGNORE" ]; then echo "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")"; fi) \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
+# configure right-justified timestamp
+r_print() { printf "%*s\r" $1 $2; }
+PS1_GIT() {
+    # if [[ `git rev-parse --is-inside-work-tree` ]];
+    if [[ ! -z "$GIT_REPO" ]];
+    then # in a git repo
+        echo $GIT_REPO$GIT_BRANCH
+    fi
+}
+
+BUILD_PS1() {
+    PS1_RHJ='\[\e[s\e[37m$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e[0m\e[u\]'
+    PS1_BASE='[\u@\h \W]'
+    GIT_REPO='$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/\ \<\1\//p")'
+    GIT_BRANCH='`git branch 2>/dev/null | sed -n "s/* \(.*\)/\1\>/p"`'
+    PS1_PROMPT=' \[\e[1m\]$PROMPT_CHAR\[\e[0m\]'
+    echo ${PS1_RHJ}${PS1_BASE}`PS1_GIT`${PS1_PROMPT}" "
+}
+PS1=`BUILD_PS1`
+
+# PS1=$PS1_RHJ$PS1_BASE$(if [ "`$GIT_REPO`" != "$REPO_IGNORE" ]; then echo " <$GIT_REPO/$GIT_BRANCH>"; fi)$PS1_PROMPT
+# PS1=$PS1_RHJ'[\u@\h \W]$(if [ "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null)" != "$REPO_IGNORE" ]; then echo "$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/ \<\1/p")$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\/\1\>/p")"; fi) \[\e[1m\]$PROMPT_CHAR\[\e[0m\] '
+
 
 # sshrc
 VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
@@ -46,10 +67,10 @@ reload_bashrc() {
     sudo cp ~/.bashrc $OTHER_DIR/.bashrc
     # set up for user
     sudo cp ~/.bashrc $HOME_DIR/.sshrc 
-    echo export VIMINIT=$VIMINIT | sudo tee -a $HOME_DIR/.sshrc
+    echo export VIMINIT=$VIMINIT | sudo tee -a $HOME_DIR/.sshrc >/dev/null
     # set up for root
     sudo cp ~/.bashrc $ROOT_DIR/.sshrc
-    echo export VIMINIT=$VIMINIT | sudo tee -a $ROOT_DIR/.sshrc
+    echo export VIMINIT=$VIMINIT | sudo tee -a $ROOT_DIR/.sshrc >/dev/null
     echo Bash config reloaded
 }
 alias vimrc='vim ~/.vimrc; reload_vimrc'
@@ -58,11 +79,9 @@ reload_vimrc() {
     # set up for user
     sudo mkdir -p $HOME_DIR/.sshrc.d
     sudo cp ~/.vimrc $HOME_DIR/.sshrc.d/.vimrc
-    echo ":imap <special> jk <Esc>" | sudo tee -a $HOME_DIR/.sshrc.d/.vimrc
     # set up for root
     sudo mkdir -p $ROOT_DIR/.sshrc.d
     sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
-    echo ":imap <special> jk <Esc>" | sudo tee -a $ROOT_DIR/.sshrc.d/.vimrc
     echo Updated vim config
 }
 
@@ -92,12 +111,12 @@ alias lx='ls -art'
 
 # handy short cuts
 alias su='sudo -i'
-alias wd='basename `pwd`'
 alias v=vim
 alias vi=vim
 alias h='history | grep'
 alias j='jobs -l '
 alias clr='clear;ls;pwd'
+alias x=exit
 alias df='df -h'
 alias mount='mount | column -t'
 alias wget='wget -c'
