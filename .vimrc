@@ -5,7 +5,7 @@
 :map <special> QQ :q!<Return>
 :map Q <Nop>
 " add line relative to cur line
-:imap <special> || <Esc>O
+:imap <special> <Bar><Bar> <Esc>O
 :imap <special> \\ <Esc>o
 " move around line
 :imap <special> << <Esc>^i
