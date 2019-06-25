@@ -4,15 +4,17 @@
 :imap <special> QQ <Esc>:q!<Return>
 :map <special> QQ :q!<Return>
 :map Q <Nop>
-" add line below cur line
-:imap <special> ?? <Esc>o
+" add line relative to cur line
+:imap <special> || <Esc>O
+:imap <special> \\ <Esc>o
 " move around line
 :imap <special> << <Esc>^i
-:imap <special> >> <Esc>$i
+:imap <special> >> <Esc>$a
 nnoremap B ^
 nnoremap E $
-nnoremap << ^
-nnoremap >> $
+nnoremap << ^i
+nnoremap >> $a
+:imap <special> %% <Esc>%i
 " incr/dec tab level
 nnoremap <Tab> >
 nnoremap <S-Tab> <
