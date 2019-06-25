@@ -21,19 +21,17 @@ tar xzvf master.tar.gz --strip 1 -C ~
 rm master.tar.gz
 # you can later manually update by using wget on the raw versions of files
 ```
-* Start using the new `.bashrc`:
+* Start using the new `.bashrc` and `.vimrc` for sshrc:
 ```
 source ~/.bashrc
-```
-* Prep `.vimrc` for your next ssh session:
-```
+reload_bashrc
 reload_vimrc
 ```
-* Set the repo to invisible so `<nix-toolkit/master>` isn't always appended when you're in `~`, but not a different repo:
+* If you cloned this repo, set the repo to invisible so `<nix-toolkit/master>` isn't always appended when you're in `~`, but not a different repo:
 ```
 mv ~/.git ~/.git.bck
 # or
-cd ~ && gitpull -z
+cd ~ && gitpullz
 ```
 
 ## Usage/Effects ##
