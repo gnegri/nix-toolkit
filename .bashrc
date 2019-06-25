@@ -119,8 +119,8 @@ fi
 ###
 
 # git
-alias gitpush='~/push-git-repo.sh'
-alias gitpushz='~/push-git-repo.sh -z'
+alias gitpush='~/push-git-repo.sh -m'
+alias gitpushz='~/push-git-repo.sh -z -m'
 alias gitpull='~/update-git-repo.sh'
 alias gitpullz='~/update-git-repo.sh -z'
 
