@@ -3,39 +3,32 @@ alias sudo='sudo '
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
     linux*|bsd*) # Linux/BSD
-        USER_DIR_PREFIX="/home"
         ROOT_DIR_PREFIX=""
         alias ls='ls -lh --color=auto '
         ;;
     darwin*) # Mac OSX
-        USER_DIR_PREFIX="/Users"
         ROOT_DIR_PREFIX="/var"
         alias ls='ls -lh -G '
         ;;
 #    solaris*) # Solaris
 #        TODO: define these
-#        USER_DIR_PREFIX=
 #        ROOT_DIR_PREFIX=
 #        ;;
 #    msys*) # what is this?
 #        TODO: define these
-#        USER_DIR_PREFIX=
 #        ROOT_DIR_PREFIX=
 #        ;;
 #    cygwin*) # Cygwin
 #        TODO: define these
-#        USER_DIR_PREFIX=
 #        ROOT_DIR_PREFIX=
 #        ;;
     *)  # Others
-        USER_DIR_PREFIX="/home"
         ROOT_DIR_PREFIX=""
         ;;
 esac
 
 # Set a few directory locales
 ROOT_DIR=$ROOT_DIR_PREFIX'/root'
-HOME_DIR=$USER_DIR_PREFIX'/'`whoami`
 if [ $(id -u) -eq 0 ];
 then # you are root
     IS_ROOT='true'
@@ -94,17 +87,16 @@ PS1=`BUILD_PS1`
 if [[ $IS_ROOT = 'false' ]];
 then
     # sshrc
-    VIMINIT="\"let \\\$MYVIMRC='\$SSHHOME/.sshrc.d/.vimrc' | source \\\$MYVIMRC\""
     alias bashrc='vim ~/.bashrc; reload_bashrc'
     function reload_bashrc() {
         source ~/.bashrc
         sudo cp ~/.bashrc $ROOT_DIR/.bashrc
         # set up for user
-        sudo cp ~/.bashrc $HOME_DIR/.sshrc 
-        echo export VIMINIT=$VIMINIT | sudo tee -a $HOME_DIR/.sshrc >/dev/null
+        cp ~/.sshrc.base ~/.sshrc
+        cat ~/.bashrc >> ~/.sshrc 
         # set up for root
-        sudo cp ~/.bashrc $ROOT_DIR/.sshrc
-        echo export VIMINIT=$VIMINIT | sudo tee -a $ROOT_DIR/.sshrc >/dev/null
+        sudo cp ~/.sshrc.base $ROOT_DIR/.sshrc
+        sudo bash -c 'cat ~/.bashrc >> $ROOT_DIR/.sshrc'
         echo Bash config reloaded
     }
 
@@ -112,8 +104,8 @@ then
     function reload_vimrc() {
         sudo cp ~/.vimrc $ROOT_DIR/.vimrc
         # set up for user
-        sudo mkdir -p $HOME_DIR/.sshrc.d
-        sudo cp ~/.vimrc $HOME_DIR/.sshrc.d/.vimrc
+        sudo mkdir -p ~/.sshrc.d
+        cp ~/.vimrc ~/.sshrc.d/.vimrc
         # set up for root
         sudo mkdir -p $ROOT_DIR/.sshrc.d
         sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
@@ -127,10 +119,10 @@ fi
 ###
 
 # git
-alias gitpush=$HOME_DIR'/push-git-repo.sh'
-alias gitpushz=$HOME_DIR'/push-git-repo.sh -z'
-alias gitpull=$HOME_DIR'/update-git-repo.sh'
-alias gitpullz=$HOME_DIR'/update-git-repo.sh -z'
+alias gitpush='~/push-git-repo.sh'
+alias gitpushz='~/push-git-repo.sh -z'
+alias gitpull='~/update-git-repo.sh'
+alias gitpullz='~/update-git-repo.sh -z'
 
 # diff
 alias diff='colordiff '
