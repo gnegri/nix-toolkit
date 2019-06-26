@@ -5,4 +5,4 @@ eval $DOTGLOB_OPT # reset to original
 source ~/.bashrc
 reload_bashrc
 reload_vimrc
-hiderepo
+mv .git .git.bck
