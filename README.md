@@ -16,6 +16,11 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/install-nix-toolkit.sh)
 ```
 
+To uninstall, run
+```
+bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/uninstall-nix-toolkit.sh)
+```
+
 ## Usage/Effects ##
 PS1 is modified to show 
 ```
