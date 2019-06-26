@@ -69,8 +69,8 @@ function BUILD_PS1() {
 
     # Right-hand justified time
     # https://superuser.com/questions/187455/right-align-part-of-prompt
-    PS1_RHJ_COLOR_CODE='37' # gray
-    PS1_RHJ='\[\e[s\e['$PS1_RHJ_COLOR_CODE'm$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e['$PS1_DEFAULT_CODE'm\e[u\]'
+    PS1_RHS_COLOR_CODE='37' # gray
+    PS1_RHS='\[\e[s\e['$PS1_RHS_COLOR_CODE'm$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e['$PS1_DEFAULT_CODE'm\e[u\]'
 
     # Basic prompt
     PS1_BASE='[\u@\h \W]'
@@ -83,7 +83,7 @@ function BUILD_PS1() {
     PS1_BOLD_CODE='1'
     PS1_PROMPT=' \[\e['$PS1_BOLD_CODE'm\]$PROMPT_CHAR\[\e['$PS1_DEFAULT_CODE'm\]'
     
-    echo ${PS1_RHJ}${PS1_BASE}${PS1_GIT_STANZA}${PS1_PROMPT}" "
+    echo ${PS1_RHS}${PS1_BASE}${PS1_GIT_STANZA}${PS1_PROMPT}" "
 }
 PS1=`BUILD_PS1`
 
@@ -93,6 +93,7 @@ then
     # sshrc
     alias bashrc='vim ~/.bashrc; reload_bashrc'
     function reload_bashrc() {
+        cat ~/.bashrc.local >> ~/.bashrc
         source ~/.bashrc
         sudo cp ~/.bashrc $ROOT_DIR/.bashrc
         # set up for user
@@ -108,8 +109,8 @@ then
     function reload_vimrc() {
         sudo cp ~/.vimrc $ROOT_DIR/.vimrc
         # set up for user
-        sudo mkdir -p ~/.sshrc.d
-        sudo cp ~/.vimrc ~/.sshrc.d/.vimrc
+        mkdir -p ~/.sshrc.d
+        cp ~/.vimrc ~/.sshrc.d/.vimrc
         # set up for root
         sudo mkdir -p $ROOT_DIR/.sshrc.d
         sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
