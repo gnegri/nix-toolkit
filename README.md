@@ -57,6 +57,15 @@ gitpush [-z] -m "commit msg" file1 file2 # gitpushz is aliased to pass -z
 These can be called from any git project folder to push/pull as indicated. The -z flag will make the script set the repo to invisible. Once invisible, you do not need to pass the -z flag going forward. If you want to make the repo visible again, manually do so:
 ```
 mv .git.bck .git
+# or
+showrepo
+```
+
+To hide it again:
+```
+mv .git .git.bck
+# or
+hiderepo
 ```
 
 Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided respectively.
