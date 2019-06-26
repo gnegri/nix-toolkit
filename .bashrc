@@ -93,7 +93,6 @@ then
     # sshrc
     alias bashrc='vim ~/.bashrc; reload_bashrc'
     function reload_bashrc() {
-        cat ~/.bashrc.local >> ~/.bashrc
         source ~/.bashrc
         sudo cp ~/.bashrc $ROOT_DIR/.bashrc
         # set up for user
@@ -123,14 +122,6 @@ fi
 # Mostly gathered from various sources
 ###
 
-# git
-alias gitpush='~/push-git-repo.sh -m'
-alias gitpushz='~/push-git-repo.sh -z -m'
-alias gitpull='~/update-git-repo.sh'
-alias gitpullz='~/update-git-repo.sh -z'
-alias hiderepo='mv .git .git.bck'
-alias showrepo='mv .git.bck .git'
-
 # diff
 alias diff='colordiff '
 
@@ -154,6 +145,14 @@ alias ll='ls -rt '
 alias la='ls -a '
 alias lx='ls -art '
 alias ld='ls -d */ '
+                                           
+# git                                      
+alias gitpush='~/push-git-repo.sh -m'      
+alias gitpushz='~/push-git-repo.sh -z -m'  
+alias gitpull='~/update-git-repo.sh'       
+alias gitpullz='~/update-git-repo.sh -z'   
+alias hiderepo='mv .git .git.bck'          
+alias showrepo='mv .git.bck .git'
 
 # handy short cuts
 alias su='sudo -i'
