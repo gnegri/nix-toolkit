@@ -12,9 +12,12 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 ## Installation ##
 * Install prereqs per your package manager.
   * Instructions for sshrc are provided [here](https://github.com/Russell91/sshrc).
-* Clone this repo in your home directory or wget it if you don't want to be able to update or contribute
+* Clone this repo in your home directory or wget it if you don't want to be able to update/contrib. 
 ```
-cd ~ && git clone https://github.com/gnegri/nix-toolkit.git
+$DOTGLOB_OPT=`shopt -p | grep dotglob` # get dotblob option
+shopt -s dotglob # set dotfile expansion so mv sees dotfiles
+git clone https://github.com/gnegri/nix-toolkit.git && mv nix-toolkit/* ~ && rm -rf nix-toolkit
+eval $DOTGLOB_OPT # reset to original
 # or
 wget https://github.com/gnegri/nix-toolkit/archive/master.tar.gz
 tar xzvf master.tar.gz --strip 1 -C ~
