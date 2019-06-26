@@ -109,7 +109,7 @@ then
         sudo cp ~/.vimrc $ROOT_DIR/.vimrc
         # set up for user
         sudo mkdir -p ~/.sshrc.d
-        cp ~/.vimrc ~/.sshrc.d/.vimrc
+        sudo cp ~/.vimrc ~/.sshrc.d/.vimrc
         # set up for root
         sudo mkdir -p $ROOT_DIR/.sshrc.d
         sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
