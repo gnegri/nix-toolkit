@@ -30,7 +30,7 @@ When in a git repo, it will also show the repo and branch name:
 There are also 2 scripts to interact with Git, which are aliased.
 ```
 gitpull [-z] # gitpullz is aliased to pass -z
-gitpush [-z] -m "commit msg" file1 file2 # gitpushz is aliased to pass -z
+gitpush [-z] "commit msg" file1 file2 # gitpushz is aliased to pass -z
 ```
 
 These can be called from any git project folder to push/pull as indicated. The -z flag will make the script set the repo to invisible. Once invisible, you do not need to pass the -z flag going forward. If you want to make the repo visible again, manually do so:
