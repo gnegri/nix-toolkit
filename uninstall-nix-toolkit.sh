@@ -6,7 +6,7 @@ rm -rf /etc/cron.d/update-nix-toolkit
 # remove git
 DOTGLOB_SHOPT=`shopt -p | grep dotglob`
 shopt -s dotglob
-rm -rf ~/.git*
+rm -rf ~/.git* ~/README.md
 eval $DOTGLOB_SHOPT
 
 # restore old bashrc
