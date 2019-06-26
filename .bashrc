@@ -4,10 +4,12 @@ alias sudo='sudo '
 case "$OSTYPE" in
     linux*|bsd*) # Linux/BSD
         ROOT_DIR_PREFIX=""
+        alias l='\ls --color=auto '
         alias ls='ls -lh --color=auto '
         ;;
     darwin*) # Mac OSX
         ROOT_DIR_PREFIX="/var"
+        alias l='\ls -G '
         alias ls='ls -lh -G '
         ;;
 #    solaris*) # Solaris
@@ -24,6 +26,8 @@ case "$OSTYPE" in
 #        ;;
     *)  # Others
         ROOT_DIR_PREFIX=""
+        alias l='\ls --color=auto '
+        alias ls='ls --color=auto '
         ;;
 esac
 
@@ -123,6 +127,8 @@ alias gitpush='~/push-git-repo.sh -m'
 alias gitpushz='~/push-git-repo.sh -z -m'
 alias gitpull='~/update-git-repo.sh'
 alias gitpullz='~/update-git-repo.sh -z'
+alias hiderepo='mv .git .git.bck'
+alias showrepo='mv .git.bck .git'
 
 # diff
 alias diff='colordiff '
@@ -143,7 +149,6 @@ alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 
 # ls
-alias l='ls '
 alias ll='ls -rt '
 alias la='ls -a '
 alias lx='ls -art '
