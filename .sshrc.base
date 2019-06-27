@@ -1,6 +1,7 @@
+# use .vimrc in $SSHHOME
 export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
 
+# function to enter bash shell with .sshrc from $SSHHOME
 function surc() {
-    sudo -E bash
-    source $SSHHOME/.sshrc
+    sudo -E bash --rcfile $SSHHOME/.sshrc
 }
