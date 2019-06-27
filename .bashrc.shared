@@ -91,14 +91,16 @@ PS1=`BUILD_PS1`
 if [[ $IS_ROOT = 'false' ]];
 then
     # sshrc
-    alias bashrc='vim ~/.bashrc; reload_bashrc'
+    alias bashrc='vim ~/.bashrc.local; reload_bashrc'
     function reload_bashrc() {
+        cp ~/.bashrc.local ~/.bashrc
+        cat ~/.bashrc.shared >> ~/.bashrc
         source ~/.bashrc
-        sudo cp ~/.bashrc $ROOT_DIR/.bashrc
         # set up for user
         cp ~/.sshrc.base ~/.sshrc
         cat ~/.bashrc >> ~/.sshrc 
         # set up for root
+        sudo cp ~/.bashrc $ROOT_DIR/.bashrc
         sudo cp ~/.sshrc.base $ROOT_DIR/.sshrc
         sudo bash -c 'cat ~/.bashrc >> $ROOT_DIR/.sshrc'
         echo Bash config reloaded
