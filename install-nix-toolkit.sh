@@ -29,5 +29,5 @@ reload_bashrc
 # get vimrc ready for sshrc
 reload_vimrc
 # set crontab to update this weekly on Sunday
-echo "0 0 * * 0 bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/install-nix-toolkit.sh)" > /etc/cron.d/update-nix-toolkit
+sudo -c 'echo "0 0 * * 0 bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/install-nix-toolkit.sh)" > /etc/cron.d/update-nix-toolkit'
 
