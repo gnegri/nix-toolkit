@@ -157,7 +157,6 @@ alias hiderepo='mv .git .git.bck'
 alias showrepo='mv .git.bck .git'
 
 # handy short cuts
-alias su='sudo -i'
 alias v=vim
 alias vi=vim
 alias h='history | grep'
@@ -178,7 +177,7 @@ alias ping='ping -c 5'
 alias ipint='ipconfig getifaddr en0'
 alias ipext='curl ipinfo.io/ip'
 alias psef='ps -ef | grep'
-alias ssh='sudo sshrc'
+alias ssh='sshrc'
 alias tailf='tail -f'
 
 # functions
