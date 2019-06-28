@@ -39,6 +39,12 @@ surc
 ```
 to enter a root shell and still use the same bashrc.
 
+Similarly,
+```
+tmuxrc
+```
+will open a tmux shell and still use the same bashrc.
+
 There are also 2 scripts to interact with Git, which are aliased.
 ```
 gitpull [-z] # gitpullz is aliased to pass -z
