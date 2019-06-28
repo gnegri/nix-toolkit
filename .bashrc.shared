@@ -117,6 +117,8 @@ then
         sudo cp ~/.vimrc $ROOT_DIR/.sshrc.d/.vimrc
         echo Updated vim config
     }
+
+    alias tmuxconf='vim ~/.tmux.conf; cp ~/.tmux.conf ~/.sshrc.d/'
 fi
 
 ###
