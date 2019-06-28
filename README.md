@@ -6,6 +6,7 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 * git
 * vim
 * bc
+* tmux (optional)
 * wget (optional - `alias wget='wget -c'` allows resuming downloads)
 * python (optional - for now, just used to pretty print json using `json_print jsonfile.json`)
 
@@ -31,6 +32,12 @@ When in a git repo, it will also show the repo and branch name:
 ```
 [user@hostname pwd_short] <repo_name/branch> $                    [HH:MM:SS] 
 ```
+
+Once ssh'd into your server, you can use 
+```
+surc
+```
+to enter a root shell and still use the same bashrc.
 
 There are also 2 scripts to interact with Git, which are aliased.
 ```
