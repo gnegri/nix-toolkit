@@ -1,6 +1,20 @@
+# use .vimrc in $SSHHOME
 export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
 
+# function to enter bash shell with .sshrc from $SSHHOME
 function surc() {
-    sudo -E bash
-    source $SSHHOME/.sshrc
+    sudo -E bash --rcfile $SSHHOME/.sshrc
 }
+
+# function for tmux compatability
+tmuxrc() {
+    local TMUXDIR=/tmp/tmuxrc`whoami`
+    if ! [ -d $TMUXDIR ]; then
+        rm -rf $TMUXDIR
+        mkdir -p $TMUXDIR
+    fi
+    rm -rf $TMUXDIR/.sshrc.d
+    cp -r $SSHHOME/.sshrc $SSHHOME/bashsshrc $SSHHOME/sshrc $SSHHOME/.sshrc.d $TMUXDIR
+    SSHHOME=$TMUXDIR SHELL=$TMUXDIR/bashsshrc /usr/bin/tmux -S $TMUXDIR/tmuxserver $@
+}
+export SHELL=`which bash`
