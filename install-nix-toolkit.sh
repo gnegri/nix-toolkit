@@ -30,6 +30,7 @@ eval $DOTGLOB_SHOPT
 mv .git .git.bck
 
 # start using new bashrc
+touch .bashrc.secret
 cp ~/.bashrc.shared ~/.bashrc
 source ~/.bashrc
 # set bashrc for this user

@@ -12,7 +12,7 @@ A few simple tools to make life with \*nix a little easier, with a strong emphas
 
 ## Installation ##
 * Install prereqs per your package manager.
-* Run the following one-liner:
+* Run the following one-liner to backup your old config files and start using the ones provided here.
 ```
 bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/install-nix-toolkit.sh)
 ```
@@ -44,6 +44,21 @@ Similarly,
 tmuxrc
 ```
 will open a tmux shell and still use the same bashrc.
+
+You can add whatever settings you like to `.bashrc.secret` (which will come with you) and `.bashrc.local.secret` (which will only affect your local .bashrc).
+
+Local `.bashrc` is contructed from:
+* `.bashrc.base`
+* `.bashrc.shared`
+* `.bashrc.secret`
+* `.bashrc.local`
+* `.bashrc.local.secret`
+
+The `.bashrc` that's used on the target server is constructed from:
+* `.sshrc.base`
+* `.bashrc.base`
+* `.bashrc.shared`
+* `.bashrc.secret`
 
 There are also 2 scripts to interact with Git, which are aliased.
 ```
