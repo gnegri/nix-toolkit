@@ -91,18 +91,19 @@ PS1=`BUILD_PS1`
 if [[ $IS_ROOT = 'false' ]];
 then
     # sshrc
-    alias bashrc='vim ~/.bashrc.local; reload_bashrc'
+    alias bashrc='vim ~/.bashrc.secret; reload_bashrc'
     function reload_bashrc() {
-        cp ~/.bashrc.local ~/.bashrc
-        cat ~/.bashrc.shared >> ~/.bashrc
-        source ~/.bashrc
+        cp ~/.bashrc.shared ~/.bashrc
+        cat ~/.bashrc.secret >> ~/.bashrc # not synced with repo
         # set up for user
         cp ~/.sshrc.base ~/.sshrc
         cat ~/.bashrc >> ~/.sshrc 
+        # keep local things local
+        cat ~/.bashrc.local >> ~/.bashrc
+        source ~/.bashrc
         # set up for root
         sudo cp ~/.bashrc $ROOT_DIR/.bashrc
-        sudo cp ~/.sshrc.base $ROOT_DIR/.sshrc
-        sudo bash -c 'cat ~/.bashrc >> $ROOT_DIR/.sshrc'
+        sudo cp ~/.sshrc $ROOT_DIR/.sshrc
         echo Bash config reloaded
     }
 
@@ -118,7 +119,8 @@ then
         echo Updated vim config
     }
 
-    alias tmuxconf='vim ~/.tmux.conf; cp ~/.tmux.conf ~/.sshrc.d/'
+    alias tmuxconf='vim ~/.tmux.conf; reload_tmux'
+    alias reload_tmux='cp ~/.tmux.conf ~/.sshrc.d/'
 fi
 
 ###
