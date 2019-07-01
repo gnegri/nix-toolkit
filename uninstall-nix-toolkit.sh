@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# remove update cron entry
-rm -rf /etc/cron.d/update-nix-toolkit
-
 # remove git
 DOTGLOB_SHOPT=`shopt -p | grep dotglob`
 shopt -s dotglob
@@ -30,3 +27,8 @@ then
     mv ~/.vimrc.bck ~/.vimrc
 fi
 
+# restore old .tmux.conf
+if [[ -f ~/.tmux.conf.bck ]];
+then
+    mv ~/.tmux.conf.bck ~/.tmux.conf
+fi

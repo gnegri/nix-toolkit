@@ -3,12 +3,19 @@
 # save off old bashrc
 if [[ ! -f ~/.bashrc.bck ]];
 then
+    # put current bashrc in a local unsynced file
+    cp ~/.bashrc ~/.bashrc.local.secret
     mv ~/.bashrc ~/.bashrc.bck
 fi
 # save off old vimrc
 if [[ ! -f ~/.vimrc.bck ]];
 then
     mv ~/.vimrc ~/.vimrc.bck
+fi
+# save off old tmux.conf
+if [[! -f ~/.tmux.conf ]];
+then
+    mv ~/.tmux.conf ~/.tmux.conf.bck
 fi
 
 # get dotblob option
@@ -23,10 +30,11 @@ eval $DOTGLOB_SHOPT
 mv .git .git.bck
 
 # start using new bashrc
-touch ~/.bashrc.local
 cp ~/.bashrc.shared ~/.bashrc
 source ~/.bashrc
 # set bashrc for this user
 reload_bashrc
 # get vimrc ready for sshrc
 reload_vimrc
+# get tmux.conf ready for sshrc
+reload_tmux
