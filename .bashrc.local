@@ -1,4 +1,7 @@
-# Local Machine-Only bashrc
+
+#################
+# .bashrc.local #
+#################
 
 # no need to take sshrc with you
 alias ssh='sshrc'

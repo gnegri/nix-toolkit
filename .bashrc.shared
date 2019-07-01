@@ -1,3 +1,8 @@
+
+##################
+# .bashrc.shared #
+##################
+
 alias sudo='sudo '
 # OS-specific implementation
 # https://stackoverflow.com/a/18434831
@@ -90,16 +95,17 @@ PS1=`BUILD_PS1`
 # functions that root shouldn't run
 if [[ $IS_ROOT = 'false' ]];
 then
-    # sshrc
-    alias bashrc='vim ~/.bashrc.secret; reload_bashrc'
+    alias bashrc='reload_bashrc; vim -R ~/.bashrc' # more of a wrapper around reload_bashrc to review current settings
     function reload_bashrc() {
-        cp ~/.bashrc.shared ~/.bashrc
+        cp ~/.bashrc.base ~/.bashrc
+        cat ~/.bashrc.shared >> ~/.bashrc
         cat ~/.bashrc.secret >> ~/.bashrc # not synced with repo
         # set up for user
         cp ~/.sshrc.base ~/.sshrc
         cat ~/.bashrc >> ~/.sshrc 
         # keep local things local
         cat ~/.bashrc.local >> ~/.bashrc
+        cat ~/.bashrc.local.secret >> ~/.bashrc # not synced with repo
         source ~/.bashrc
         # set up for root
         sudo cp ~/.bashrc $ROOT_DIR/.bashrc

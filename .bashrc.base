@@ -1,0 +1,5 @@
+######################################################################
+# .bashrc by nix-toolkit (https://github.com/gnegri/nix-toolkit)     #
+# Edit .bashrc.secret for unsynced changes that sshrc takes with you #
+# Edit .bashrc.local.secret for unsynced changes that stay local     #
+######################################################################
