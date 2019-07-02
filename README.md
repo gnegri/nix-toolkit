@@ -45,7 +45,7 @@ tmuxrc
 ```
 will open a tmux shell and still use the same bashrc.
 
-You can add whatever settings you like to `.bashrc.secret` (which will come with you) and `.bashrc.local.secret` (which will only affect your local .bashrc).
+You can add whatever settings you like to `.bashrc.secret` (which will come with you) and `.bashrc.local.secret` (which will only affect your local `.bashrc`).
 
 Local `.bashrc` is contructed from:
 * `.bashrc.base`
@@ -83,7 +83,6 @@ hiderepo
 Otherwise, peruse .bashrc and .vimrc for aliases and keybinds provided respectively.
 
 ## Troubleshooting/Contributing ##
-$USER_DIR_PREFIX and $ROOT_DIR_PREFIX:
 * No specific settings for msys, cygwin, solaris etc
 
 ## License ##
