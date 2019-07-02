@@ -194,8 +194,3 @@ function json_print() {
     cat "$1" | python -m json.tool
 }
 
-function prepend() {
-    read pre
-    pre > .tmp
-    $2 >> .tmp
-}
