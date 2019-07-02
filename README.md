@@ -2,10 +2,10 @@
 A few simple tools to make life with \*nix a little easier, with a strong emphasis on DevOps/admin usability.
 
 ## Pre-reqs ##
-* [sshrc](https://github.com/Russell91/sshrc)
-* git
-* vim
+* [sshrc](https://github.com/Russell91/sshrc) (local machine only)
 * bc
+* vim
+* git (optional)
 * tmux (optional)
 * wget (optional - `alias wget='wget -c'` allows resuming downloads)
 * python (optional - for now, just used to pretty print json using `json_print jsonfile.json`)
