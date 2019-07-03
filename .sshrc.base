@@ -1,6 +1,7 @@
-#########################
-# .sshrc by nix-toolkit #
-#########################
+
+###############
+# .sshrc.base #
+###############
 
 # use .vimrc in $SSHHOME
 export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
@@ -11,7 +12,7 @@ function surc() {
 }
 
 # function for tmux compatability
-tmuxrc() {
+function tmuxrc() {
     local TMUXDIR=/tmp/tmuxrc`whoami`
     if ! [ -d $TMUXDIR ]; then
         rm -rf $TMUXDIR
