@@ -7,44 +7,50 @@ alias sudo='sudo '
 # OS-specific implementation
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
-    linux*|bsd*) # Linux/BSD
+    linux*)   # Linux
         ROOT_DIR_PREFIX=""
-        alias l='\ls --color=auto '
-        alias ls='ls -lh --color=auto '
+        alias ls='ls -h --color=auto '
         ;;
-    darwin*) # Mac OSX
+    darwin*)  # Mac OSX
         ROOT_DIR_PREFIX="/var"
-        alias l='\ls -G '
-        alias ls='ls -lh -G '
+        alias ls='ls -h -G '
+        # Linuxify: https://github.com/fabiomaia/linuxify
+        if [[ -f ~/.linuxify ]];
+        then
+            . ~/.linuxify
+        fi
+        ;;
+    bsd*)     # BSD
+        ROOT_DIR_PREFIX=""
+        alias ls='ls -h -G '
         ;;
 #    solaris*) # Solaris
 #        TODO: define these
 #        ROOT_DIR_PREFIX=
 #        ;;
-#    msys*) # what is this?
+#    msys*)    # Windows
 #        TODO: define these
 #        ROOT_DIR_PREFIX=
 #        ;;
-#    cygwin*) # Cygwin
+#    cygwin*)  # Cygwin
 #        TODO: define these
 #        ROOT_DIR_PREFIX=
 #        ;;
     *)  # Others
         ROOT_DIR_PREFIX=""
-        alias l='\ls --color=auto '
         alias ls='ls --color=auto '
         ;;
 esac
 
 # Set a few directory locales
-ROOT_DIR=$ROOT_DIR_PREFIX'/root'
-if [ $(id -u) -eq 0 ];
+ROOT_DIR="${ROOT_DIR_PREFIX}/root"
+if [ $EUID -eq 0 ];
 then # you are root
     IS_ROOT='true'
-    PROMPT_CHAR='#'
+    PROMPT_CHAR=' # '
 else # non-root
     IS_ROOT='false'
-    PROMPT_CHAR='$'
+    PROMPT_CHAR=' $ '
 fi
 
 #######
@@ -55,47 +61,45 @@ fi
 # https://superuser.com/questions/187455/right-align-part-of-prompt
 function r_print() { printf "%*s\r" $1 $2; }
 
-# Set up the git portion of PS1
-function PS1_GIT() {
-    # https://stackoverflow.com/a/42543006
-    GIT_REPO='$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/\ \<\1\//p")'
-    # https://stackoverflow.com/questions/6245570/how-to-get-the-current-branch-name-in-git
-    # lots of options.
-    GIT_BRANCH='$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\1\>/p")'
-    if [[ ! -z "$GIT_REPO" ]];
-    then # in a git repo
-        echo $GIT_REPO$GIT_BRANCH
-    fi
-}
-
 # actual PS1 build
 function BUILD_PS1() {
-    PS1_DEFAULT_CODE='0' # black
+    PS1_DEFAULT_CODE='\[$(tput sgr0)\]' # black
 
     # Right-hand justified time
     # https://superuser.com/questions/187455/right-align-part-of-prompt
-    PS1_RHS_COLOR_CODE='37' # gray
-    PS1_RHS='\[\e[s\e['$PS1_RHS_COLOR_CODE'm$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\e['$PS1_DEFAULT_CODE'm\e[u\]'
+    PS1_RHS_COLOR_CODE='\[$(tput setaf 15)\]' # gray
+    PS1_RHS=${PS1_RHS_COLOR_CODE}'\[$(r_print `echo $(tput cols) - 1 | bc` "["\t"]")\]'${PS1_DEFAULT_CODE}
 
     # Basic prompt
     PS1_BASE='[\u@\h \W]'
 
     # Git
-    PS1_GIT_COLOR_CODE='35' # purple
-    PS1_GIT_STANZA='\[\e['$PS1_GIT_COLOR_CODE'm'`PS1_GIT`'\e['$PS1_DEFAULT_CODE'm\]'
+    # https://stackoverflow.com/a/42543006
+    GIT_REPO='$(basename -s .git `git config --get remote.origin.url 2>/dev/null` 2>/dev/null | sed -n "s/\(.*\)/\ \<\1\//p")'
+    # https://stackoverflow.com/questions/6245570/how-to-get-the-current-branch-name-in-git
+    # lots of options.
+    GIT_BRANCH='$(git branch 2>/dev/null | sed -n "s/* \(.*\)/\1\>/p")'
+    PS1_GIT=' '
+    if [[ ! -z "${GIT_REPO}" ]];
+    then # in a git repo
+        PS1_GIT=${GIT_REPO}${GIT_BRANCH}
+    fi
+    PS1_GIT_COLOR_CODE='\[$(tput setaf 13)\]' # purple
+    PS1_GIT_STANZA=${PS1_GIT_COLOR_CODE}${PS1_GIT}${PS1_DEFAULT_CODE}
 
     # Final prompt char ($ or # if root)
-    PS1_BOLD_CODE='1'
-    PS1_PROMPT=' \[\e['$PS1_BOLD_CODE'm\]$PROMPT_CHAR\[\e['$PS1_DEFAULT_CODE'm\]'
+    PS1_BOLD_CODE='\[$(tput bold)\]'
+    PS1_PROMPT=${PS1_BOLD_CODE}${PROMPT_CHAR}${PS1_DEFAULT_CODE}
     
-    echo ${PS1_RHS}${PS1_BASE}${PS1_GIT_STANZA}${PS1_PROMPT}" "
+    echo "${PS1_RHS}${PS1_BASE}${PS1_GIT_STANZA}${PS1_PROMPT}"
 }
-PS1=`BUILD_PS1`
+#PS1=`BUILD_PS1`
+PS1=$(eval BUILD_PS1)
 
 # functions that root shouldn't run
-if [[ $IS_ROOT = 'false' ]];
+if [[ ${IS_ROOT} = 'false' ]];
 then
-    alias bashrc='reload_bashrc; vim -R ~/.bashrc' # more of a wrapper around reload_bashrc to review current settings
+    alias bashrc='vim ~/.bashrc.shared; reload_bashrc; cat ~/.bashrc'
     function reload_bashrc() {
         cp ~/.bashrc.base ~/.bashrc
         cat ~/.bashrc.shared >> ~/.bashrc
@@ -138,9 +142,9 @@ fi
 alias diff='colordiff '
 
 # grep
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+alias grepi='grep -i '
+alias egrepi='egrep -i '
+alias fgrepi='fgrep -i '
 
 # cd
 alias cd-='cd -'
@@ -153,10 +157,11 @@ alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 
 # ls
-alias ll='ls -rt '
-alias la='ls -a '
-alias lx='ls -art '
-alias ld='ls -d */ '
+alias ll='ls -l '
+alias la='ll -a '
+alias lt='ll -rt '
+alias lx='ll -art '
+alias ldir='ll -d */ '
                                            
 # git                                      
 alias gitpush='~/push-git-repo.sh -m'      
@@ -169,13 +174,14 @@ alias showrepo='mv .git.bck .git'
 # handy short cuts
 alias v=vim
 alias vi=vim
-alias h='history | grep'
+alias h='history | grep '
 alias j='jobs -l '
-alias clr='clear; ls; pwd'
+alias clr='clear; ls; pwd '
 alias x=exit
 alias df='df -h'
 alias mount='mount | column -t'
 alias wget='wget -c'
+alias curl='curl -sS'
 alias mkdir='mkdir -pv'
 alias chownr='chown -R'
 alias chmodr='chmod -R'
@@ -186,10 +192,6 @@ alias sha='shasum -a 256'
 alias ping='ping -c 5'
 alias ipint='ipconfig getifaddr en0'
 alias ipext='curl ipinfo.io/ip'
-alias psef='ps -ef | grep'
+alias psef='ps -ef | grepi '
 alias tailf='tail -f'
-
-# functions
-function json_print() {
-    cat "$1" | python -m json.tool
-}
+alias jsonp='python -m json.tool'

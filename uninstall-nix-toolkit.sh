@@ -32,3 +32,9 @@ if [[ -f ~/.tmux.conf.bck ]];
 then
     mv ~/.tmux.conf.bck ~/.tmux.conf
 fi
+
+# remove linuxify
+if [[ "$OSTYPE" =~ darwin* && -f ~/.linuxify ]];
+then
+    bash <(curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/.linuxify) uninstall
+fi

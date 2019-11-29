@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ~
 
 # save off old bashrc
 if [[ ! -f ~/.bashrc.bck ]];
@@ -28,6 +29,13 @@ git clone https://github.com/gnegri/nix-toolkit.git && mv nix-toolkit/* ~ && rm 
 eval $DOTGLOB_SHOPT 
 # hide repo
 mv .git .git.bck
+
+# get linuxify
+if [[ "$OSTYPE" =~ darwin* ]];
+then
+    curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/.linuxify > ~/.linuxify
+    bash <(curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/linuxify) install
+fi
 
 # start using new bashrc
 touch .bashrc.secret
