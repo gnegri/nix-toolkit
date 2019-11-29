@@ -34,7 +34,7 @@ mv .git .git.bck
 if [[ "$OSTYPE" =~ darwin* ]];
 then
     curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/.linuxify > ~/.linuxify
-    bash <(curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/linuxify) install
+    bash <(curl -s https://raw.githubusercontent.com/fabiomaia/linuxify/master/linuxify) install
 fi
 
 # start using new bashrc
