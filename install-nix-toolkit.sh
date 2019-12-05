@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cd ~
 
 # save off old bashrc
@@ -14,7 +14,7 @@ then
     mv ~/.vimrc ~/.vimrc.bck
 fi
 # save off old tmux.conf
-if [[! -f ~/.tmux.conf ]];
+if [[ ! -f ~/.tmux.conf ]];
 then
     mv ~/.tmux.conf ~/.tmux.conf.bck
 fi
@@ -34,7 +34,7 @@ mv .git .git.bck
 if [[ "$OSTYPE" =~ darwin* ]];
 then
     curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/.linuxify > ~/.linuxify
-    bash <(curl -s https://raw.githubusercontent.com/fabiomaia/linuxify/master/linuxify) install
+    bash <(curl -sS https://raw.githubusercontent.com/fabiomaia/linuxify/master/linuxify) install
 fi
 
 # start using new bashrc
