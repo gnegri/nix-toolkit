@@ -2,7 +2,7 @@
 A few simple tools to make life with \*nix a little easier, with a strong emphasis on DevOps/admin usability.
 
 ## Pre-reqs ##
-* [`sshrc`](https://github.com/Russell91/sshrc) (local machine only)
+* [`sshrc`](https://github.com/gnegri/sshrc) (local machine only)
 * `bc`
 * `vim`
 * `brew` if on MacOS
