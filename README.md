@@ -23,6 +23,13 @@ To uninstall, run
 bash <(curl -s https://raw.githubusercontent.com/gnegri/nix-toolkit/master/uninstall-nix-toolkit.sh)
 ```
 
+If using ZSH with this, add
+```
+source ~/.bashrc
+```
+to your `.zshrc` file, or comment it out to uninstall.
+TODO: check for `.zshrc`; `reload_bashrc` won't re-`source ~/.zshrc`
+
 ## Usage/Effects ##
 PS1 is modified to show 
 ```
